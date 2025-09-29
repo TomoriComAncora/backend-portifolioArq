@@ -10,7 +10,7 @@ class CreateUserService {
   async execute({ googleId, nome, email }: GoogleRequest) {
     let user = await prisma.usuario.findFirst({
       where: {
-        email,
+        OR: [{ googleId: googleId }, { email: email }],
       },
     });
 
@@ -22,8 +22,6 @@ class CreateUserService {
           googleId,
         },
       });
-    } else {
-      throw new Error("Email já cadastrado");
     }
 
     return user;

@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import passport from "passport";
+import { AuthUserGoogleController } from "./controller/AuthUserGoogleController.js";
 
 const router = Router();
 
@@ -17,9 +18,8 @@ router.get(
   "/auth/google/callback",
   passport.authenticate("google", { session: false, failureRedirect: "/" }),
   (req: Request, res: Response) => {
-    res.send("Login com Google realizado! Veja o console do servidor 🚀");
+    return new AuthUserGoogleController().handle(req, res);
   }
 );
-
 
 export { router };
