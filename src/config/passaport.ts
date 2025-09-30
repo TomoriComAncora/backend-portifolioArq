@@ -1,6 +1,6 @@
 import passport from "passport";
 import { Strategy as GoogleStrategy, Profile } from "passport-google-oauth20";
-import { CreateUserService } from "../services/CreateUserGoogleService.js";
+import { CreateUserService } from "../services/user/CreateUserGoogleService.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -31,8 +31,8 @@ passport.use(
         email: emails?.[0]?.value!,
       });
 
-      return done(null, user);
       console.log(`Login autenticado com usuário: ${user.email}`);
+      return done(null, user);
     }
   )
 );

@@ -1,4 +1,4 @@
-import { prisma } from "../prisma.js";
+import { prisma } from "../../prisma.js";
 
 interface GoogleRequest {
   googleId: string;
@@ -10,7 +10,7 @@ class CreateUserService {
   async execute({ googleId, nome, email }: GoogleRequest) {
     let user = await prisma.usuario.findFirst({
       where: {
-        OR: [{ googleId: googleId }, { email: email }],
+        OR: [{ googleId: googleId }],
       },
     });
 
@@ -20,7 +20,7 @@ class CreateUserService {
           nome,
           email,
           googleId,
-        },
+        }
       });
     }
 

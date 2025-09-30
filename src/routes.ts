@@ -1,6 +1,8 @@
 import { Router, Request, Response } from "express";
 import passport from "passport";
-import { AuthUserGoogleController } from "./controller/AuthUserGoogleController.js";
+import { AuthUserGoogleController } from "./controller/user/AuthUserGoogleController.js";
+import { CreateUserController } from "./controller/user/CreateUserController.js";
+import { AuthUserController } from "./controller/user/AuthUserController.js";
 
 const router = Router();
 
@@ -21,5 +23,9 @@ router.get(
     return new AuthUserGoogleController().handle(req, res);
   }
 );
+
+router.post("/users", new CreateUserController().handle);
+
+router.post("/session", new AuthUserController().handle);
 
 export { router };
