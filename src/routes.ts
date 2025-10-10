@@ -8,6 +8,7 @@ import { CreateUserController } from "./controller/user/CreateUserController.js"
 import { AuthUserController } from "./controller/user/AuthUserController.js";
 import { DetailUserController } from "./controller/user/DetailUserController.js";
 import { CreateProjectController } from "./controller/projects/CreateProjectController.js";
+import { ListProjectController } from "./controller/projects/ListProjectController.js";
 
 const router = Router();
 
@@ -39,5 +40,7 @@ router.post(
   upload.fields([{ name: "capa", maxCount: 1 }, { name: "imagens" }]),
   new CreateProjectController().handle
 );
+
+router.get("/project", isAuthenticated, new ListProjectController().handle);
 
 export { router };
