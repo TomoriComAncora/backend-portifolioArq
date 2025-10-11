@@ -1,26 +1,22 @@
 import { Request, Response } from 'express';
-import { prisma } from "../../prisma.js"; // Ajuste o caminho se o seu prisma.ts estiver em outro lugar
+import { DetailProjectService } from '../../services/project/DetailProjectService.js';
 
 export class DetailProjectController {
   async handle(req: Request, res: Response) {
-    const { id } = req.params;
+    const { id: projetoId } = req.params;
+
+    const detailProjectService = new DetailProjectService();
 
     try {
-      const projeto = await prisma.projeto.findUnique({
-        where: {
-          id: id,
-        },
-        include: {
-          ImagemProjeto: true,
-        },
-      });
-
-      if (!projeto) {
-        return res.status(404).json({ message: 'Projeto não encontrado' });
-      }
+      const projeto = await detailProjectService.execute({ projetoId });
 
       return res.json(projeto);
+
     } catch (error) {
+      if (error.message === "Projeto não encontrado.") {
+        return res.status(404).json({ error: error.message });
+      }
+
       console.error(error);
       return res.status(500).json({ message: 'Erro ao buscar detalhes do projeto' });
     }

@@ -1,16 +1,14 @@
 import { Request, Response } from 'express';
-import { prisma } from "../../prisma.js"; 
+import { ListProjectsService } from '../../services/project/ListProjectsService.js';
 
 export class ListProjectsController {
   async handle(req: Request, res: Response) {
     const { categoria } = req.query;
 
+    const listProjectsService = new ListProjectsService();
+
     try {
-      const projetos = await prisma.projeto.findMany({
-        where: {
-          categoria: categoria ? String(categoria) : undefined,
-        },
-      });
+      const projetos = await listProjectsService.execute({ categoria: categoria as string });
       return res.json(projetos);
     } catch (error) {
       console.error(error);
