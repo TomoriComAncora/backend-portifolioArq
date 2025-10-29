@@ -12,6 +12,7 @@ import { DetailProjectController } from "./controller/project/DetailProjectContr
 import { ListCategoriesController } from "./controller/project/ListCategoriesController.js";
 import { CreateProjectController } from './controller/project/CreateProjectController.js';
 import { DeleteProjectController } from './controller/project/DeleteProjectController.js'; 
+import { SearchProjectsController } from './controller/project/SearchProjectsController.js';
 
 const router = Router();
 const upload = multer(multerConfig);
@@ -40,5 +41,6 @@ router.get("/me", isAuthenticated, new DetailUserController().handle);
 router.get("/projetos", new ListProjectsController().handle);
 router.get("/projetos/:id", new DetailProjectController().handle);
 router.get("/categorias", new ListCategoriesController().handle);
+router.get('/projetos/search', new SearchProjectsController().handle);
 
 export { router };
