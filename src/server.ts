@@ -1,5 +1,6 @@
+// src/server.ts
+
 import express, { Request, Response, NextFunction } from "express";
-import { router } from "./routes.js";
 import cors from "cors";
 import passport from "./config/passaport.js";
 import path from "path";
@@ -17,16 +18,19 @@ app.use(passport.initialize());
 app.use(router);
 app.use("/files", express.static(path.resolve(__dirname, "..", "tmp")));
 
+// Inicializa o passport globalmente
+app.use(passport.initialize());
+
+// Registra os roteadores
+app.use("/auth", authRouter); // Rotas de auth sob o prefixo /auth
+app.use(router);              // Outras rotas (projetos, users) na raiz
+
+// Middleware de erro
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof Error) {
-    return res.status(400).json({
-      error: err.message,
-    });
+    return res.status(400).json({ error: err.message });
   }
-  return res.status(500).json({
-    status: "error",
-    message: "Internal error server.",
-  });
+  return res.status(500).json({ status: "error", message: "Internal server error." });
 });
 
 app.listen(3333, () => {
