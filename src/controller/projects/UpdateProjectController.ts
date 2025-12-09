@@ -3,7 +3,7 @@ import { UpdateProjectService } from "../../services/projects/UpdateProjectServi
 
 class UpdateProjectController {
   async handle(req: Request, res: Response) {
-    const { titulo, descricao, data, categoria, cliente, prazo } =
+    const { titulo, descricao, categoria, cliente, prazo } =
       req.body;
     const { project_id } = req.params;
     const user_id = req.user_id as string;
@@ -33,7 +33,6 @@ class UpdateProjectController {
       {
         titulo,
         descricao,
-        data,
         categoria,
         capa,
         imagens,
