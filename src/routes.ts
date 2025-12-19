@@ -9,6 +9,7 @@ import { AuthUserController } from "./controller/user/AuthUserController.js";
 import { DetailUserController } from "./controller/user/DetailUserController.js";
 import { CreateProjectController } from "./controller/projects/CreateProjectController.js"
 import { ListProjectController } from "./controller/projects/ListProjectController.js";
+import { ListProjectsAllController } from "./controller/projects/ListProjectsAllController.js";
 import { UpdateProjectController } from "./controller/projects/UpdateProjectController.js";
 import { DetailProjectController } from "./controller/projects/DetailProjectController.js";
 import { ListCategoriesController } from "./controller/projects/ListCategoriesController.js";
@@ -45,6 +46,7 @@ router.post(
 );//funciona
 
 router.get("/project", isAuthenticated, new ListProjectController().handle);//funciona
+router.get("/projects", new ListProjectsAllController().handle);
 router.get("/project/:id", new DetailProjectController().handle);//funciona
 router.get("/category", new ListCategoriesController().handle);//não sei como funciona
 router.get('/project/search', new SearchProjectsController().handle);//não sei como funciona
