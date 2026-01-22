@@ -12,12 +12,6 @@ export class DetailProjectService {
       },
       include: {
         ImagemProjeto: true,
-        usuario: {
-          select: {
-            nome: true,
-            email: true,
-          },
-        },
       },
     });
 

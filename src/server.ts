@@ -16,44 +16,11 @@ const prisma = new PrismaClient();
 app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
+app.use(router);
+app.use("/files", express.static(path.resolve(__dirname, "..", "tmp")));
+
 
 // Middleware de erro
-
-app.get("/criar-dados-teste", async (req, res) => {
-  try {
-    const timestamp = Date.now();
-
-    const user = await prisma.usuario.create({
-      data: {
-        nome: `Admin Teste ${timestamp}`,
-        email: `admin${timestamp}@teste.com`,
-        googleId: `google${timestamp}`,
-      },
-    });
-
-    const projeto = await prisma.projeto.create({
-      data: {
-        titulo: "Projeto Teste Automático",
-        descricao:
-          "Este projeto foi criado via rota temporária para testar o Front-end.",
-        categoria: "Residencial", 
-        imagemCapa: "https://via.placeholder.com/400x300", 
-        usuarioId: user.id,
-      },
-    });
-
-    return res.json({
-      mensagem: "Sucesso! Dados criados no banco.",
-      projeto_criado: projeto,
-    });
-  } catch (error: any) {
-    return res.status(500).json({
-      erro: "Falha ao criar dados",
-      detalhes: error.message,
-    });
-  }
-});
-
 app.use(router);
 app.use("/files", express.static(path.resolve(__dirname, "..", "tmp")));
 
