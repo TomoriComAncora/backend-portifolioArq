@@ -16,6 +16,7 @@ import { DetailProjectController } from "./controller/projects/DetailProjectCont
 import { ListCategoriesController } from "./controller/projects/ListCategoriesController.js";
 import { SearchProjectsController } from './controller/projects/SearchProjectsController.js';
 import { DeleteProjectController } from './controller/projects/DeleteProjectController.js';
+import { ListProjectsByUserPublicController } from "./controller/projects/ListProjectsByUserPublicController.js";
 const router = Router();
 const upload = multer(uploadconfig.upload("./tmp"));
 router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
@@ -33,6 +34,7 @@ router.get("/projects", new ListProjectsAllController().handle);
 router.get("/project/:id", new DetailProjectController().handle);
 router.get("/category", new ListCategoriesController().handle);
 router.get('/project/search', new SearchProjectsController().handle);
+router.get("/portfolio/:userId", new ListProjectsByUserPublicController().handle);
 router.put("/project/:project_id", isAuthenticated, upload.fields([{ name: "capa", maxCount: 1 }, { name: "imagens" }]), new UpdateProjectController().handle);
 router.delete('/project/:id', isAuthenticated, new DeleteProjectController().handle);
 export { router };

@@ -11,7 +11,10 @@ class AuthUserService {
         if (!user) {
             throw new Error("Email/senha incorreto!");
         }
-        const senhaCorreta = compare(senha, user.senha);
+        if (!user.senha) {
+            throw new Error("Email/senha incorreto!");
+        }
+        const senhaCorreta = await compare(senha, user.senha);
         if (!senhaCorreta) {
             throw new Error("Email/senha incorreto!");
         }
