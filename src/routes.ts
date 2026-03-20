@@ -7,6 +7,7 @@ import { AuthUserGoogleController } from "./controller/user/AuthUserGoogleContro
 import { CreateUserController } from "./controller/user/CreateUserController.js";
 import { AuthUserController } from "./controller/user/AuthUserController.js";
 import { DetailUserController } from "./controller/user/DetailUserController.js";
+import { UpdateUserPhotoController } from "./controller/user/UpdateUserPhotoController.js";
 import { CreateProjectController } from "./controller/projects/CreateProjectController.js"
 import { ListProjectController } from "./controller/projects/ListProjectController.js";
 import { ListProjectsAllController } from "./controller/projects/ListProjectsAllController.js";
@@ -34,9 +35,16 @@ router.get(
   }
 );
 
-router.post("/users", new CreateUserController().handle);
+router.post("/users", upload.single("fotoPerfil"), new CreateUserController().handle);
 router.post("/session", new AuthUserController().handle);
 router.get("/me", isAuthenticated, new DetailUserController().handle);
+
+router.put(
+  "/me/photo",
+  isAuthenticated,
+  upload.single("fotoPerfil"),
+  new UpdateUserPhotoController().handle
+);
 
 router.post(
   "/project",
@@ -66,4 +74,3 @@ router.delete(
 
 
 export { router };
-

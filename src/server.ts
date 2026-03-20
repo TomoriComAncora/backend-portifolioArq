@@ -16,14 +16,11 @@ const prisma = new PrismaClient();
 app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
-app.use(router);
 app.use("/files", express.static(path.resolve(__dirname, "..", "tmp")));
+app.use(router);
 
 
 // Middleware de erro
-app.use(router);
-app.use("/files", express.static(path.resolve(__dirname, "..", "tmp")));
-
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof Error) {
     return res.status(400).json({ error: err.message });
@@ -33,6 +30,8 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     .json({ status: "error", message: "Internal server error." });
 });
 
-app.listen(3333, () => {
-  console.log("Servidor online, na porta 3333");
+const port = Number(process.env.PORT) || 3333;
+
+app.listen(port, () => {
+  console.log(`Servidor online, na porta ${port}`);
 });

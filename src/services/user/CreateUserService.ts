@@ -5,12 +5,17 @@ interface UserRequest {
   nome: string;
   email: string;
   senha: string;
+  fotoPerfil: string;
 }
 
 class CreateUserService {
-  async execute({ nome, email, senha }: UserRequest) {
+  async execute({ nome, email, senha, fotoPerfil }: UserRequest) {
     if (!email) {
       throw new Error("Email inválido");
+    }
+
+    if (!fotoPerfil) {
+      throw new Error("Foto de perfil obrigatória");
     }
 
     const usuarioExistente = await prisma.usuario.findFirst({
@@ -30,11 +35,13 @@ class CreateUserService {
         nome: nome,
         email: email,
         senha: senhaHash,
+        fotoPerfil,
       },
       select: {
         id: true,
         nome: true,
         email: true,
+        fotoPerfil: true,
       },
     });
 

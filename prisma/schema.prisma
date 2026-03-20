@@ -20,6 +20,7 @@ model Usuario {
   email    String  @unique
   senha    String?
   googleId String? @unique
+  fotoPerfil String?
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt

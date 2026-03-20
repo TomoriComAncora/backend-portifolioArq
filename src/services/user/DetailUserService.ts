@@ -10,10 +10,15 @@ class DetailUserService {
         id: true,
         nome: true,
         email: true,
+        fotoPerfil: true,
+        googleId: true,
       },
     });
 
-    return user;
+    if (!user) return null;
+
+    const { googleId, ...rest } = user;
+    return { ...rest, isGoogleUser: !!googleId };
   }
 }
 

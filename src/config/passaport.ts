@@ -23,12 +23,14 @@ passport.use(
       console.log("EMAIL: ", profile.emails?.[0]?.value);
 
       const { id, displayName, emails } = profile;
+      const fotoPerfil = profile.photos?.[0]?.value;
       const createUserGoogleService = new CreateUserService();
 
       const user = await createUserGoogleService.execute({
         googleId: id,
         nome: displayName,
         email: emails?.[0]?.value!,
+        fotoPerfil,
       });
 
       console.log(`Login autenticado com usuário: ${user.email}`);

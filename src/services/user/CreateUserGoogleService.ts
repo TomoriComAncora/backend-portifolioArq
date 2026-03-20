@@ -4,10 +4,11 @@ interface GoogleRequest {
   googleId: string;
   nome: string;
   email: string;
+  fotoPerfil?: string;
 }
 
 class CreateUserService {
-  async execute({ googleId, nome, email }: GoogleRequest) {
+  async execute({ googleId, nome, email, fotoPerfil }: GoogleRequest) {
     let user = await prisma.usuario.findFirst({
       where: {
         OR: [{ googleId: googleId }],
@@ -20,6 +21,7 @@ class CreateUserService {
           nome,
           email,
           googleId,
+          fotoPerfil,
         }
       });
     }

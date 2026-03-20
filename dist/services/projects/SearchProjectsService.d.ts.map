@@ -1,0 +1,1 @@
+{"version":3,"file":"SearchProjectsService.d.ts","sourceRoot":"","sources":["../../../src/services/projects/SearchProjectsService.ts"],"names":[],"mappings":"AAEA,UAAU,cAAc;IACtB,KAAK,EAAE,MAAM,CAAC;CACf;AAED,qBAAa,qBAAqB;IAC1B,OAAO,CAAC,EAAE,KAAK,EAAE,EAAE,cAAc;;;;;CA2BxC"}
