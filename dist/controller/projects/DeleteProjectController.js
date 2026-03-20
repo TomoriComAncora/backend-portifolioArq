@@ -18,7 +18,6 @@ export class DeleteProjectController {
             if (error.message === "Não autorizado.") {
                 return res.status(403).json({ error: error.message });
             }
-            console.error(error);
             return res.status(500).json({ error: "Erro interno no servidor." });
         }
     }

@@ -11,7 +11,6 @@ export class DetailProjectController {
             if (error.message === "Projeto não encontrado.") {
                 return res.status(404).json({ error: error.message });
             }
-            console.error(error);
             return res
                 .status(500)
                 .json({ message: "Erro ao buscar detalhes do projeto" });

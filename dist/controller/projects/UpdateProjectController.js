@@ -15,7 +15,7 @@ class UpdateProjectController {
                 imagensRemoveIds = JSON.parse(req.body.imagensRemoveIds);
             }
             catch {
-                console.warn("Erro ao parsear imagensRemoveIds");
+                imagensRemoveIds = [];
             }
         }
         const updateProjectService = new UpdateProjectService();

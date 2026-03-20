@@ -8,9 +8,6 @@ passport.use(new GoogleStrategy({
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: `${process.env.BACKEND_URL}/auth/google/callback`,
 }, async (acessToken, refreshToken, profile, done) => {
-    console.log("ID: ", profile.id);
-    console.log("NOME: ", profile.displayName);
-    console.log("EMAIL: ", profile.emails?.[0]?.value);
     const { id, displayName, emails } = profile;
     const fotoPerfil = profile.photos?.[0]?.value;
     const createUserGoogleService = new CreateUserService();
@@ -20,7 +17,6 @@ passport.use(new GoogleStrategy({
         email: emails?.[0]?.value,
         fotoPerfil,
     });
-    console.log(`Login autenticado com usuário: ${user.email}`);
     return done(null, user);
 }));
 export default passport;

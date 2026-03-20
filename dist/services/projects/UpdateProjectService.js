@@ -3,7 +3,6 @@ class UpdateProjectService {
     async execute(
     // Recebendo os novos campos aqui também
     { titulo, descricao, categoria, capa, imagens, imagensRemoveIds, cliente, prazo, }, { project_id }, user_id) {
-        // console.log(`Debug Update: Cliente: ${cliente}, Resp: ${responsavel}, Prazo: ${prazo}`);
         const project = await prisma.projeto.findUnique({
             where: {
                 id: project_id,

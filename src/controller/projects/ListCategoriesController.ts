@@ -7,8 +7,7 @@ export class ListCategoriesController {
     try {
       const categorias = await listCategoriesService.execute();
       return res.json(categorias);
-    } catch (error) {
-      console.error(error);
+    } catch {
       return res.status(500).json({ message: "Erro ao buscar categorias" });
     }
   }

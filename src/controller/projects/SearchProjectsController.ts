@@ -18,8 +18,7 @@ export class SearchProjectsController {
         query: String(q),
       });
       return res.json(projetos);
-    } catch (error) {
-      console.error(error);
+    } catch {
       return res.status(500).json({ message: "Erro ao buscar projetos." });
     }
   }

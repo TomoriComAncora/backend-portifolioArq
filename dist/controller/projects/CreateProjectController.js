@@ -16,7 +16,6 @@ class CreateProjectController {
                     url: img.filename,
                 }))
                 : [];
-            console.log("Capa:", capa?.filename);
             const creteProjectService = new CreateProjectService();
             const project = await creteProjectService.execute({
                 titulo,

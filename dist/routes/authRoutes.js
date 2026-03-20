@@ -10,7 +10,7 @@ const authRouter = Router();
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3333/auth/google/callback",
+    callbackURL: `http://${process.env.BACKEND_URL}/auth/google/callback`,
 }, async (acessToken, refreshToken, profile, done) => {
     const { id, displayName, emails } = profile;
     const createUserGoogleService = new CreateUserService();

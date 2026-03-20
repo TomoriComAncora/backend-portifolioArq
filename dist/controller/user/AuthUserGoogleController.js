@@ -9,7 +9,6 @@ class AuthUserGoogleController {
             subject: user.id,
             expiresIn: "1d",
         });
-        console.log(`Logado com email: ${user.email}`);
         return res.redirect(`${process.env.FRONTEND_URL}/login?token=${token}`);
     }
 }

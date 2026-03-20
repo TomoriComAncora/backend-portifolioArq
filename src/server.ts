@@ -3,7 +3,7 @@ import { router } from "./routes.js";
 import cors from "cors";
 import passport from "./config/passaport.js";
 import path from "path";
-import { dirname, extname, resolve } from "path";
+import { dirname } from "path";
 import { fileURLToPath } from "url";
 
 import { PrismaClient } from "@prisma/client";
@@ -33,5 +33,4 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 const port = Number(process.env.PORT) || 3333;
 
 app.listen(port, () => {
-  console.log(`Servidor online, na porta ${port}`);
 });

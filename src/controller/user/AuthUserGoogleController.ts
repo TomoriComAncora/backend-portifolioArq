@@ -17,7 +17,6 @@ class AuthUserGoogleController {
       }
     );
 
-    console.log(`Logado com email: ${user.email}`);
     return res.redirect(`${process.env.FRONTEND_URL}/login?token=${token}`);
   }
 }

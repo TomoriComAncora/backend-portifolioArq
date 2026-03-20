@@ -23,7 +23,11 @@ export class DeleteProjectService {
         ].filter(Boolean);
         const deletePromises = filesToDelete.map(filename => {
             const filePath = path.join(uploadFolder, filename);
-            return fs.promises.unlink(filePath).catch(err => console.warn(`Arquivo não encontrado para deletar: ${filePath}`));
+            return fs.promises.unlink(filePath).catch((err) => {
+                if (err?.code === "ENOENT")
+                    return;
+                throw err;
+            });
         });
         await Promise.all(deletePromises);
         await prisma.$transaction([

@@ -23,7 +23,7 @@ class UpdateProjectController {
       try {
         imagensRemoveIds = JSON.parse(req.body.imagensRemoveIds);
       } catch {
-        console.warn("Erro ao parsear imagensRemoveIds");
+        imagensRemoveIds = [];
       }
     }
 

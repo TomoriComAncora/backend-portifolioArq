@@ -36,8 +36,6 @@ class UpdateProjectService {
     { project_id }: ProjectId,
     user_id: string
   ) {
-    // console.log(`Debug Update: Cliente: ${cliente}, Resp: ${responsavel}, Prazo: ${prazo}`);
-
     const project = await prisma.projeto.findUnique({
       where: {
         id: project_id,

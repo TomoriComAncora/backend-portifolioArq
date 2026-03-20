@@ -25,8 +25,6 @@ class CreateProjectController {
           }))
         : [];
 
-      console.log("Capa:", capa?.filename);
-
       const creteProjectService = new CreateProjectService();
 
       const project = await creteProjectService.execute({

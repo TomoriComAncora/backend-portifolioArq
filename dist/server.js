@@ -26,6 +26,5 @@ app.use((err, req, res, next) => {
 });
 const port = Number(process.env.PORT) || 3333;
 app.listen(port, () => {
-    console.log(`Servidor online, na porta ${port}`);
 });
 //# sourceMappingURL=server.js.map
