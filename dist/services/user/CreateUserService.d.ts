@@ -7,10 +7,10 @@ interface UserRequest {
 declare class CreateUserService {
     execute({ nome, email, senha, fotoPerfil }: UserRequest): Promise<{
         user: {
-            id: string;
             nome: string;
             email: string;
             fotoPerfil: string;
+            id: string;
         };
     }>;
 }

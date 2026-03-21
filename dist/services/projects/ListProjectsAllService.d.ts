@@ -2,8 +2,8 @@ declare class ListProjectsAllService {
     execute(): Promise<{
         projetos: ({
             usuario: {
-                id: string;
                 nome: string;
+                id: string;
             };
             ImagemProjeto: {
                 id: string;

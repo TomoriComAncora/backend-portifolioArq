@@ -4,15 +4,15 @@ interface ListProjectsByUserPublicRequest {
 declare class ListProjectsByUserPublicService {
     execute({ userId }: ListProjectsByUserPublicRequest): Promise<{
         usuario: {
-            id: string;
             nome: string;
             fotoPerfil: string;
+            id: string;
         };
         projetos: ({
             usuario: {
-                id: string;
                 nome: string;
                 fotoPerfil: string;
+                id: string;
             };
             ImagemProjeto: {
                 id: string;

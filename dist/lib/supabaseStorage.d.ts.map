@@ -1,0 +1,1 @@
+{"version":3,"file":"supabaseStorage.d.ts","sourceRoot":"","sources":["../../src/lib/supabaseStorage.ts"],"names":[],"mappings":"AAQA,wBAAsB,gBAAgB,CAAC,MAAM,EAAE;IAC7C,IAAI,EAAE,MAAM,CAAC;IACb,IAAI,EAAE,MAAM,CAAC;IACb,WAAW,CAAC,EAAE,MAAM,CAAC;CACtB,GAAG,OAAO,CAAC;IAAE,SAAS,EAAE,MAAM,CAAC;IAAC,IAAI,EAAE,MAAM,CAAA;CAAE,CAAC,CAiB/C"}

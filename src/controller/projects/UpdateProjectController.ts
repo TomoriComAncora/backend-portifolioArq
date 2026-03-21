@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { UpdateProjectService } from "../../services/projects/UpdateProjectService.js";
+import crypto from "crypto";
+import { uploadPublicFile } from "../../lib/supabaseStorage.js";
 
 class UpdateProjectController {
   async handle(req: Request, res: Response) {
@@ -12,11 +14,41 @@ class UpdateProjectController {
       [fildname: string]: Express.Multer.File[];
     };
 
-    const capa = files?.capa?.[0]?.filename ?? null;
+    const uploadId = crypto.randomBytes(12).toString("hex");
 
-    const imagens = files?.imagens?.map((file) => ({
-      url: file.filename,
-    }));
+    let capa: string | null = null;
+    if (files?.capa?.[0]) {
+      const c = files.capa[0];
+      const fileExt = (c.originalname.split(".").pop() || "").toLowerCase();
+      const safeExt = fileExt ? `.${fileExt}` : "";
+      const objectPath = `projects/${user_id}/${uploadId}/capa-${crypto
+        .randomBytes(8)
+        .toString("hex")}${safeExt}`;
+      const up = await uploadPublicFile({
+        path: objectPath,
+        body: c.buffer,
+        contentType: c.mimetype,
+      });
+      capa = up.publicUrl;
+    }
+
+    const imagens = files?.imagens
+      ? await Promise.all(
+          files.imagens.map(async (file) => {
+            const fileExt = (file.originalname.split(".").pop() || "").toLowerCase();
+            const safeExt = fileExt ? `.${fileExt}` : "";
+            const objectPath = `projects/${user_id}/${uploadId}/img-${crypto
+              .randomBytes(8)
+              .toString("hex")}${safeExt}`;
+            const up = await uploadPublicFile({
+              path: objectPath,
+              body: file.buffer,
+              contentType: file.mimetype,
+            });
+            return { url: up.publicUrl };
+          })
+        )
+      : undefined;
 
     let imagensRemoveIds: string[] = [];
     if (req.body.imagensRemoveIds) {

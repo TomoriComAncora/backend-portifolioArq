@@ -1,4 +1,6 @@
 import { CreateProjectService } from "../../services/projects/CreateProjectService.js";
+import crypto from "crypto";
+import { uploadPublicFile } from "../../lib/supabaseStorage.js";
 class CreateProjectController {
     async handle(req, res) {
         const { titulo, descricao, categoria, cliente, prazo } = req.body;
@@ -10,10 +12,34 @@ class CreateProjectController {
             const files = req.files;
             const capa = files["capa"]?.[0];
             const imagens = files["imagens"];
-            const imagemCapa = capa ? capa.filename : "";
+            const uploadId = crypto.randomBytes(12).toString("hex");
+            let imagemCapa = "";
+            if (capa) {
+                const fileExt = (capa.originalname.split(".").pop() || "").toLowerCase();
+                const safeExt = fileExt ? `.${fileExt}` : "";
+                const objectPath = `projects/${usuarioId}/${uploadId}/capa-${crypto
+                    .randomBytes(8)
+                    .toString("hex")}${safeExt}`;
+                const up = await uploadPublicFile({
+                    path: objectPath,
+                    body: capa.buffer,
+                    contentType: capa.mimetype,
+                });
+                imagemCapa = up.publicUrl;
+            }
             const imagensData = imagens
-                ? imagens.map((img) => ({
-                    url: img.filename,
+                ? await Promise.all(imagens.map(async (img) => {
+                    const fileExt = (img.originalname.split(".").pop() || "").toLowerCase();
+                    const safeExt = fileExt ? `.${fileExt}` : "";
+                    const objectPath = `projects/${usuarioId}/${uploadId}/img-${crypto
+                        .randomBytes(8)
+                        .toString("hex")}${safeExt}`;
+                    const up = await uploadPublicFile({
+                        path: objectPath,
+                        body: img.buffer,
+                        contentType: img.mimetype,
+                    });
+                    return { url: up.publicUrl };
                 }))
                 : [];
             const creteProjectService = new CreateProjectService();

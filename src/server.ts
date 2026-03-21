@@ -2,21 +2,12 @@ import express, { Request, Response, NextFunction } from "express";
 import { router } from "./routes.js";
 import cors from "cors";
 import passport from "./config/passaport.js";
-import path from "path";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-
 import { PrismaClient } from "@prisma/client";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
 const app = express();
-const prisma = new PrismaClient();
 app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
-app.use("/files", express.static(path.resolve(__dirname, "..", "tmp")));
 app.use(router);
 
 

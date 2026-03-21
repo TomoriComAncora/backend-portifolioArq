@@ -30,10 +30,18 @@ Arquivo: `backend-portifolioArq/.env` (nao commitar)
 
 ## Uploads / arquivos
 
-- Uploads vao para `backend-portifolioArq/tmp/`
-- Os arquivos sao servidos via `GET /files/<filename>` (static)
+Em producao, os uploads (foto de perfil e imagens de projetos) sao enviados para o Supabase Storage (bucket publico).
 
-Observacao: em producao, se o host nao persistir disco, os arquivos enviados para `tmp/` podem sumir apos redeploy/restart.
+Variaveis necessarias:
+
+- `SUPABASE_URL`: Project URL do Supabase
+- `SUPABASE_SERVICE_ROLE_KEY`: chave `service_role` (somente backend)
+- `SUPABASE_BUCKET`: nome do bucket (ex.: `portifolio-files`)
+
+Observacoes:
+
+- Nunca exponha `SUPABASE_SERVICE_ROLE_KEY` no frontend.
+- Como o bucket e publico, o backend salva no banco a URL publica do arquivo.
 
 ## Rotas principais
 

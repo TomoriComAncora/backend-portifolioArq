@@ -6,12 +6,12 @@ interface GoogleRequest {
 }
 declare class CreateUserService {
     execute({ googleId, nome, email, fotoPerfil }: GoogleRequest): Promise<{
-        id: string;
+        googleId: string | null;
         nome: string | null;
         email: string;
-        senha: string | null;
-        googleId: string | null;
         fotoPerfil: string | null;
+        id: string;
+        senha: string | null;
         createdAt: Date;
         updatedAt: Date;
     }>;

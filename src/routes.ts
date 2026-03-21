@@ -1,7 +1,6 @@
 import { Router, Request, Response } from "express";
 import multer from "multer";
 import passport from "./config/passaport.js";
-import uploadconfig from "./config/multer.js";
 import { isAuthenticated } from "./middlewares/isAuthenticated.js";
 import { AuthUserGoogleController } from "./controller/user/AuthUserGoogleController.js";
 import { CreateUserController } from "./controller/user/CreateUserController.js";
@@ -20,7 +19,7 @@ import { ListProjectsByUserPublicController } from "./controller/projects/ListPr
 
 const router = Router();
 
-const upload = multer(uploadconfig.upload("./tmp"));
+const upload = multer({ storage: multer.memoryStorage() });
 
 router.get(
   "/auth/google",

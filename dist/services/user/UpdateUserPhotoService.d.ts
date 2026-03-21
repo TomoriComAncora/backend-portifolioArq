@@ -4,10 +4,10 @@ interface UpdateUserPhotoRequest {
 }
 declare class UpdateUserPhotoService {
     execute({ userId, fotoPerfil }: UpdateUserPhotoRequest): Promise<{
-        id: string;
         nome: string;
         email: string;
         fotoPerfil: string;
+        id: string;
     }>;
 }
 export { UpdateUserPhotoService };
